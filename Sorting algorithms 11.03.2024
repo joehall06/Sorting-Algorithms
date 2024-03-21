@@ -1,0 +1,56 @@
+def linear_search():
+    items = ["orange", "banana", "apple", "strawberries", "rasberries", "pear", "grapefruit"]
+    item_to_find = input("Enter the fruit to find: ")
+
+    index = 0
+    found = False
+
+    while index < len(items):
+        if items[index] == item_to_find:
+            print(f"Value found at index {index}")
+            found = True
+            break
+        index += 1
+
+    if not found:
+        print("Value not found")
+
+def binary_search():
+    items = ["orange", "banana", "apple", "strawberries", "rasberries", "pear", "grapefruit"]
+    item_to_find = input("Enter the fruit to find: ")
+
+    lower_bound = 0
+    upper_bound = len(items) - 1
+    found = False
+
+    while lower_bound <= upper_bound and found == False:
+        midpoint = (lower_bound + upper_bound) // 2
+        if items[midpoint] == item_to_find:
+            found = True
+        else:
+            if items[midpoint] < item_to_find:
+                lower_bound = midpoint + 1
+            else:
+                upper_bound = midpoint - 1
+
+    if found == True:
+        print(f"Item found at position {midpoint}")
+    else:
+        print("Item not found")
+
+def bubble_sort():
+    items = ["orange", "banana", "apple", "straoinddwberries", "rasberries", "pear", "grapefruit"]
+    n = len(items)
+    swapped = True
+
+    while n > 0 and swapped == True:
+        swapped = False
+        n = n - 1
+        for index in range(0,n):
+            if items[index] > items[index + 1]:
+                temp = items[index]
+                items[index] = items[index + 1]
+                items[index + 1] = temp
+                swapped = True
+
+    print(items)
