@@ -1,0 +1,146 @@
+using System;
+using System.CodeDom.Compiler;
+using System.Collections.Generic;
+using System.ComponentModel.Design.Serialization;
+using System.Diagnostics.Eventing.Reader;
+using System.Linq;
+using System.Runtime.CompilerServices;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace ConsoleApp1
+{
+    internal class Program
+    {
+        static void Main(string[] args)
+        {
+
+            int[] itemsForSearch = {1, 4, 5, 9, 13, 17, 20};
+            int[] itemsForSort = { 16, 4, 1, 9, 13, 24, 32 };
+
+            Console.WriteLine("Which search/sort algorithm would you like to use: ");
+            Console.WriteLine("Linear Search - 1");
+            Console.WriteLine("Binary Search - 2");
+            Console.WriteLine("Bubble Sort - 3");
+            Console.WriteLine("Insertion Sort - 4");
+            int algorithmUsed = int.Parse(Console.ReadLine());
+            // int.Parse = converts input into integer
+
+            switch (algorithmUsed)
+            {
+                case 1:
+                    Console.WriteLine("What item are you trying to find: ");
+                    int itemSearchLinear = int.Parse(Console.ReadLine());
+                    linearSearch(itemsForSearch, itemSearchLinear);
+                    break;
+                case 2:
+                    Console.WriteLine("What item are you trying to find: ");
+                    int itemSearchBinary = int.Parse(Console.ReadLine());
+                    binarySearch(itemsForSearch, itemSearchBinary);
+                    break;
+                case 3:
+                    bubbleSort(itemsForSort);
+                    break;
+                case 4:
+                    insertionSort(itemsForSort);
+                    break;
+            }
+
+            Console.ReadKey();
+        }
+        
+        static void linearSearch(int[] itemsForSearch, int itemSearchLinear)
+        {
+            bool found = false;
+
+            for (int i = 0; i < itemsForSearch.Length; i++)
+            {
+                if (itemSearchLinear == itemsForSearch[i])
+                {
+                    found = true;
+                    Console.WriteLine($"Item was found at index {i}");
+                    break;
+                }
+            }
+
+            if (!found)
+            {
+                Console.WriteLine("Item was not found in items!");
+            }
+        }
+        static void binarySearch(int[] itemsForSearch, int itemSearchBinary)
+        {
+            int lowerBound = 0;
+            int upperBound = itemsForSearch.Length - 1;
+            bool found = false;
+
+            while (lowerBound <= upperBound)
+            {
+                int middleBound = (lowerBound + upperBound) / 2;
+                
+                if (itemSearchBinary == itemsForSearch[middleBound])
+                {
+                    found = true;
+                    Console.WriteLine($"Item was found at index {middleBound}");
+                    break;
+                }
+                else if (itemSearchBinary < itemsForSearch[middleBound])
+                {
+                    upperBound = middleBound - 1;
+                }
+                else
+                {
+                    lowerBound = middleBound + 1;
+                }
+            }
+
+            if (!found)
+            {
+                Console.WriteLine("Item was not found in items!");
+            }
+        }
+        static void bubbleSort(int[] itemsForSort)
+        {
+            bool swapped = true;
+
+            while (swapped)
+            // code within () has to be true to execute
+            {
+                swapped = false;
+                for (int i = 0; i < itemsForSort.Length - 1; i++)
+                {
+                    if (itemsForSort[i + 1] < itemsForSort[i])
+                    {
+                        int temp = itemsForSort[i];
+                        itemsForSort[i] = itemsForSort[i + 1];
+                        itemsForSort[i + 1] = temp;
+                        swapped = true;
+                    }
+                }
+            }
+            foreach (int i in itemsForSort)
+            // foreach loop is used exclusively to loop through elements in an array
+            {
+                Console.Write(i + " ");
+            }
+        }
+        static void insertionSort(int[] itemsForSort)
+        {
+            for (int index = 1; index < itemsForSort.Length; index++)
+            {
+                int current = itemsForSort[index];
+                int index2 = index;
+                while (index2 > 0 && itemsForSort[index2 - 1] > current)
+                {
+                    itemsForSort[index2] = itemsForSort[index2 - 1];
+                    index2--;
+                }
+                itemsForSort[index2] = current;
+            }
+            foreach (int i in itemsForSort)
+            {
+                Console.Write(i + " ");
+            }
+        }
+    }
+}
