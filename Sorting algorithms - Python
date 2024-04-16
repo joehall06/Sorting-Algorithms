@@ -68,5 +68,3 @@ def insertion_sort():
         items[index2] = current
         
     print(items)
-
-
